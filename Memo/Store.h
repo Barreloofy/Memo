@@ -16,5 +16,6 @@ Created by Barreloofy on 6/9/25 at 11:47 AM
 
 void load(List*);
 void save(List*);
+void fileAppend(const char*);
 
 #endif

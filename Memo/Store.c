@@ -16,12 +16,14 @@ void load(List* list) {
     char* buffer = malloc(sizeof(char));
     int capacity = sizeof(char);
     int size = 0;
-    char currentCharacter;
 
+    char currentCharacter;
     int isEmpty = 1;
 
     while ((currentCharacter = fgetc(file)) != EOF) {
-      if (currentCharacter != 10 && currentCharacter != 9 && currentCharacter != 32) isEmpty = 0;
+      if (currentCharacter != 10 &&
+          currentCharacter != 9 &&
+          currentCharacter != 32) isEmpty = 0;
 
       if (size >= CHARLIMIT) {
         if (!isEmpty) {
@@ -36,15 +38,21 @@ void load(List* list) {
       }
 
       if (currentCharacter == '\n') {
-        if (!isEmpty) {
+        if (isEmpty) {
+          free(buffer);
+          buffer = malloc(sizeof(char));
+          capacity = sizeof(char);
+          size = 0;
+          isEmpty = 1;
+        } else {
           buffer[size] = '\0';
           listAppend(list, nodeCreate(buffer));
-        }
 
-        buffer = malloc(sizeof(char));
-        capacity = sizeof(char);
-        size = 0;
-        isEmpty = 1;
+          buffer = malloc(sizeof(char));
+          capacity = sizeof(char);
+          size = 0;
+          isEmpty = 1;
+        }
       } else {
         if (size < capacity) {
           buffer[size++] = currentCharacter;
@@ -86,6 +94,18 @@ void save(List* list) {
       currentNode = currentNode->next;
     }
   }
+
+  fclose(file);
+}
+
+void fileAppend(const char* buffer) {
+  FILE* file = fopen(FILENAME, "a+");
+
+  if (file == NULL) return;
+
+  fputs(buffer, file);
+  fputc('\0', file);
+  fputc('\n', file);
 
   fclose(file);
 }

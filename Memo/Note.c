@@ -29,8 +29,8 @@ char* noteCreate(void) {
   char* buffer = malloc(sizeof(char));
   int capacity = sizeof(char);
   int size = 0;
-  char currentCharacter;
 
+  char currentCharacter;
   int isEmpty = 1;
 
   if (buffer == NULL) return NULL;
@@ -39,7 +39,9 @@ char* noteCreate(void) {
   printf("\nNote: ");
 
   while ((currentCharacter = getchar()) != '\n') {
-    if (currentCharacter != 10 && currentCharacter != 9 && currentCharacter != 32) isEmpty = 0;
+    if (currentCharacter != 10 &&
+        currentCharacter != 9 &&
+        currentCharacter != 32) isEmpty = 0;
 
     if (size < capacity) {
       buffer[size++] = currentCharacter;
@@ -64,11 +66,12 @@ char* noteCreate(void) {
     }
   }
 
-  if (!isEmpty) {
+  if (isEmpty) {
+    free(buffer);
+    return NULL;
+  } else {
     buffer[size] = '\0';
     return buffer;
-  } else {
-    return NULL;
   }
 }
 
