@@ -1,93 +1,84 @@
 /*
- Note.c
+Note.c
 Memo
-  
+
 Created by Barreloofy on 6/7/25 at 3:37 PM
 */
 
 #include "Note.h"
 
+/* Adds a new node to list with the contents returned by noteCreate().
+ * - Parameters:
+ *    - list: The list of notes.
+ */
 void noteAdd(List* list) {
   char* note = noteCreate();
 
   if (note == NULL) {
-    goto operationError;
-  } else {
-    if (listAppend(list, nodeCreate(note)) == SUCCESS) {
-      printf("--- Note Successfully Added ---\n");
-      return;
-    } else {
-      goto operationError;
-    }
+    printf("Failed To Add Note\n");
+    return;
   }
 
-operationError:
-  printf("Failed To Add Note\n");
+  if (listAppend(list, nodeCreate(note))) {
+    printf("--- Note Successfully Added ---\n");
+  } else {
+    printf("Failed To Add Note\n");
+  }
 }
 
+/* Creates a new note from standard input.
+ * - Returns: A pointer to the beginning of a null-terminated string.
+ */
 char* noteCreate(void) {
-  char* buffer = malloc(sizeof(char));
-  int capacity = sizeof(char);
-  int size = 0;
-
+  StringBuffer buffer;
   char currentCharacter;
-  int isEmpty = 1;
+  bool isEmpty = true;
 
-  if (buffer == NULL) return NULL;
+  if (!stringBufferInit(&buffer, 1)) return NULL;
 
-  printf("\n--- Add Note ---");
-  printf("\nNote: ");
+  printf(
+  "\n"
+  "--- Add Note ---"
+  "\n"
+  "Note: ");
 
-  while ((currentCharacter = getchar()) != '\n') {
-    if (currentCharacter != 10 &&
-        currentCharacter != 9 &&
-        currentCharacter != 32) isEmpty = 0;
+  while ((currentCharacter = getchar()) != ASCIILF) {
+    if (currentCharacter != ASCIITAB &&
+        currentCharacter != ASCIISPACE) isEmpty = false;
 
-    if (size < capacity) {
-      buffer[size++] = currentCharacter;
-    } else {
-      char* bridge = NULL;
-      int newCapacity = capacity * 2;
-
-      if (newCapacity <= capacity) {
-        free(buffer);
-        return NULL;
-      }
-
-      capacity = newCapacity;
-      bridge = realloc(buffer, capacity);
-      if (bridge == NULL) {
-        free(buffer);
-        return NULL;
-      }
-
-      buffer = bridge;
-      buffer[size++] = currentCharacter;
+    if (!stringBufferAppend(&buffer, currentCharacter)) {
+      free(buffer.storage);
+      return NULL;
     }
   }
 
   if (isEmpty) {
-    free(buffer);
+    free(buffer.storage);
     return NULL;
   } else {
-    buffer[size] = '\0';
-    return buffer;
+    stringBufferAppend(&buffer, ASCIINULL);
+    return buffer.storage;
   }
 }
 
+/* Removes the specified node, i.e, note from list.
+ * - Parameters:
+ *    - list: The list of notes.
+ */
 void noteRemove(List* list) {
-  unsigned choice = 0;
+  unsigned int index = 0;
 
-  if (listView(list)) return;
+  if (!listView(list)) return;
 
   printf("Enter Index of Note To Remove: ");
-  scanf("%d", &choice);
-  while (getchar() != '\n');
+  scanf("%d", &index);
+  while (getchar() != ASCIILF);
 
-  if (listRemove(list, choice - 1) == SUCCESS) {
+  if (listRemove(list, index)) {
     printf("--- Note Successfully Removed ---\n");
   } else {
-    printf("--- While Removing Note encountered an Error\n");
-    printf("Make Sure The Index Corresponds To One Of The Notes ---\n");
+    printf(
+    "--- While Removing Note encountered an Error\n"
+    "Make Sure The Index Corresponds To One Of The Notes ---\n");
   }
 }

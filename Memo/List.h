@@ -10,7 +10,7 @@ Created by Barreloofy on 6/5/25 at 10:32 PM
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "Error.h"
+#include "Bool.h"
 
 typedef struct Node Node;
 struct Node {
@@ -20,7 +20,7 @@ struct Node {
 };
 
 Node* nodeCreate(char*);
-Result nodeDestroy(Node*);
+bool nodeDestroy(Node*);
 
 typedef struct {
   Node* head;
@@ -28,12 +28,10 @@ typedef struct {
 } List;
 
 List listCreate(void);
-Result listDestroy(List*);
+bool listDestroy(List*);
 
-Result listAppend(List*, Node*);
-Result listRemove(List*, unsigned);
-Node* listRetrieve(List*, unsigned);
-int listIsEmpty(List*);
-Result listView(List*);
+bool listView(List*);
+bool listAppend(List*, Node*);
+bool listRemove(List*, unsigned int);
 
 #endif

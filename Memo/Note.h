@@ -1,5 +1,5 @@
 /*
- Note.h
+Note.h
 Memo
   
 Created by Barreloofy on 6/7/25 at 3:37 PM
@@ -10,8 +10,10 @@ Created by Barreloofy on 6/7/25 at 3:37 PM
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "Error.h"
 #include "List.h"
+#include "Bool.h"
+#include "Ascii.h"
+#include "StringBuffer.h"
 
 char* noteCreate(void);
 void noteAdd(List*);

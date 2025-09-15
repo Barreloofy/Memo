@@ -11,6 +11,8 @@
 		29421E112DF2367A00AAA505 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 29421E0E2DF2367A00AAA505 /* main.c */; };
 		294EE8B02DF6E52900564390 /* Store.c in Sources */ = {isa = PBXBuildFile; fileRef = 294EE8AF2DF6E52900564390 /* Store.c */; };
 		295CAA7B2DF4782200B0221D /* Note.c in Sources */ = {isa = PBXBuildFile; fileRef = 295CAA7A2DF4782200B0221D /* Note.c */; };
+		2983834B2E784073009E6121 /* ArgumentHandler.c in Sources */ = {isa = PBXBuildFile; fileRef = 2983834A2E784073009E6121 /* ArgumentHandler.c */; };
+		29E9EF7C2E6B42DD00EBA290 /* StringBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 29E9EF7B2E6B42DD00EBA290 /* StringBuffer.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,11 +33,16 @@
 		29421E0C2DF2367A00AAA505 /* List.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = List.h; sourceTree = "<group>"; };
 		29421E0D2DF2367A00AAA505 /* List.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = List.c; sourceTree = "<group>"; };
 		29421E0E2DF2367A00AAA505 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		29421E122DF2388E00AAA505 /* Error.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Error.h; sourceTree = "<group>"; };
 		294EE8AE2DF6E52900564390 /* Store.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Store.h; sourceTree = "<group>"; };
 		294EE8AF2DF6E52900564390 /* Store.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Store.c; sourceTree = "<group>"; };
 		295CAA792DF4782200B0221D /* Note.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
 		295CAA7A2DF4782200B0221D /* Note.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Note.c; sourceTree = "<group>"; };
+		298383492E784073009E6121 /* ArgumentHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArgumentHandler.h; sourceTree = "<group>"; };
+		2983834A2E784073009E6121 /* ArgumentHandler.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ArgumentHandler.c; sourceTree = "<group>"; };
+		2993F8BD2E6C4C02001179DF /* Bool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bool.h; sourceTree = "<group>"; };
+		2993F8C02E6C4D76001179DF /* Ascii.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Ascii.h; sourceTree = "<group>"; };
+		29E9EF7A2E6B42DD00EBA290 /* StringBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StringBuffer.h; sourceTree = "<group>"; };
+		29E9EF7B2E6B42DD00EBA290 /* StringBuffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = StringBuffer.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,15 +77,28 @@
 			isa = PBXGroup;
 			children = (
 				29421E0E2DF2367A00AAA505 /* main.c */,
-				29421E122DF2388E00AAA505 /* Error.h */,
+				298383492E784073009E6121 /* ArgumentHandler.h */,
+				2983834A2E784073009E6121 /* ArgumentHandler.c */,
 				294EE8AE2DF6E52900564390 /* Store.h */,
 				294EE8AF2DF6E52900564390 /* Store.c */,
+				29E9EF7A2E6B42DD00EBA290 /* StringBuffer.h */,
+				29E9EF7B2E6B42DD00EBA290 /* StringBuffer.c */,
 				295CAA792DF4782200B0221D /* Note.h */,
 				295CAA7A2DF4782200B0221D /* Note.c */,
 				29421E0C2DF2367A00AAA505 /* List.h */,
 				29421E0D2DF2367A00AAA505 /* List.c */,
+				2993F8BC2E6C4BDA001179DF /* Utilities */,
 			);
 			path = Memo;
+			sourceTree = "<group>";
+		};
+		2993F8BC2E6C4BDA001179DF /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				2993F8BD2E6C4C02001179DF /* Bool.h */,
+				2993F8C02E6C4D76001179DF /* Ascii.h */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -114,6 +134,7 @@
 				TargetAttributes = {
 					29421DFC2DF2340200AAA505 = {
 						CreatedOnToolsVersion = 16.4;
+						LastSwiftMigration = 1640;
 					};
 				};
 			};
@@ -141,8 +162,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29E9EF7C2E6B42DD00EBA290 /* StringBuffer.c in Sources */,
 				29421E102DF2367A00AAA505 /* List.c in Sources */,
 				294EE8B02DF6E52900564390 /* Store.c in Sources */,
+				2983834B2E784073009E6121 /* ArgumentHandler.c in Sources */,
 				295CAA7B2DF4782200B0221D /* Note.c in Sources */,
 				29421E112DF2367A00AAA505 /* main.c in Sources */,
 			);
@@ -269,24 +292,29 @@
 		29421E052DF2340200AAA505 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				GCC_C_LANGUAGE_STANDARD = c89;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_PEDANTIC = YES;
 				OTHER_CFLAGS = "-pedantic";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
 		29421E062DF2340200AAA505 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				GCC_C_LANGUAGE_STANDARD = c89;
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GCC_WARN_PEDANTIC = YES;
 				OTHER_CFLAGS = "-pedantic";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};

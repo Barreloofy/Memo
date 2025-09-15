@@ -1,13 +1,11 @@
 /*
 List.c
 Memo
-  
+
 Created by Barreloofy on 6/5/25 at 10:32 PM
 */
 
 #include "List.h"
-
-/* Node functions */
 
 Node* nodeCreate(char* data) {
   Node* node = malloc(sizeof(Node));
@@ -20,51 +18,50 @@ Node* nodeCreate(char* data) {
   return node;
 }
 
-Result nodeDestroy(Node* node) {
-  if (node == NULL || (node->previous != NULL && node->next != NULL)) {
-    return ERROR;
-  }
+bool nodeDestroy(Node* node) {
+  if (node == NULL || (node->previous != NULL && node->next != NULL)) return false;
+
   free(node->data);
   free(node);
-  return SUCCESS;
-}
 
-/* List functions initialize & destroy */
+  return true;
+}
 
 List listCreate(void) {
   List list = { NULL, NULL };
   return list;
 }
 
-Result listDestroy(List* list) {
+bool listDestroy(List* list) {
   if (list->head == NULL) {
-    return SUCCESS;
+    return true;
   } else {
-    Node* oldHead = NULL;
+    Node* nodeToDestroy = NULL;
 
-    while ((oldHead = list->head) != NULL) {
-      if (oldHead->next == NULL) {
-        if (nodeDestroy(oldHead) == ERROR) return ERROR;
-        break;
+    while ((nodeToDestroy = list->head) != NULL) {
+      if (nodeToDestroy->next == NULL) {
+        if (!nodeDestroy(nodeToDestroy)) {
+          return false;
+        } else {
+          goto finish;
+        }
       }
 
-      list->head = oldHead->next;
+      list->head = nodeToDestroy->next;
       list->head->previous = NULL;
 
-      if (nodeDestroy(oldHead) == ERROR) return ERROR;
+      if (!nodeDestroy(nodeToDestroy)) return false;
     }
 
+  finish:
     list->head = NULL;
     list->tail = NULL;
-
-    return SUCCESS;
+    return true;
   }
 }
 
-/* List functions operations */
-
-Result listAppend(List* list, Node* node) {
-  if (node == NULL) return ERROR;
+bool listAppend(List* list, Node* node) {
+  if (node == NULL) return false;
 
   if (list->head == NULL) {
     list->head = node;
@@ -78,11 +75,11 @@ Result listAppend(List* list, Node* node) {
     list->tail = node;
   }
 
-  return SUCCESS;
+  return true;
 }
 
-Result listRemove(List* list, unsigned index) {
-  unsigned count = 0;
+bool listRemove(List* list, unsigned int index) {
+  unsigned int count = 1;
   Node* currentNode = list->head;
 
   while (currentNode != NULL) {
@@ -90,9 +87,6 @@ Result listRemove(List* list, unsigned index) {
       currentNode = currentNode->next;
       count++;
     } else {
-      Node* previous = currentNode->previous;
-      Node* next = currentNode->next;
-
       if (currentNode == list->head) {
         if (currentNode == list->tail) {
           list->head = NULL;
@@ -105,68 +99,44 @@ Result listRemove(List* list, unsigned index) {
           currentNode->next = NULL;
           return nodeDestroy(currentNode);
         }
-      }
-
-      if (currentNode == list->tail) {
+      } else if (currentNode == list->tail) {
         list->tail = currentNode->previous;
         list->tail->next = NULL;
 
         currentNode->previous = NULL;
         return nodeDestroy(currentNode);
-      }
-
-      previous->next = next;
-      next->previous = previous;
-
-      currentNode->previous = NULL;
-      currentNode->next = NULL;
-      return nodeDestroy(currentNode);
-    }
-  }
-
-  return ERROR;
-}
-
-Node* listRetrieve(List* list, unsigned index) {
-  if (list->head == NULL) {
-    return NULL;
-  } else {
-    unsigned count = 0;
-    Node* currentNode = list->head;
-
-    while (currentNode != NULL) {
-      if (count == index) {
-        return currentNode;
       } else {
-        currentNode = currentNode->next;
+        Node* previous = currentNode->previous;
+        Node* next = currentNode->next;
+
+        previous->next = next;
+        next->previous = previous;
+
+        currentNode->previous = NULL;
+        currentNode->next = NULL;
+        return nodeDestroy(currentNode);
       }
     }
-
-    return NULL;
   }
+
+  return false;
 }
 
-int listIsEmpty(List* list) {
-  return list->head == NULL;
-}
-
-Result listView(List* list) {
+bool listView(List* list) {
   if (list->head == NULL) {
     printf("\n--- No Note's Yet! ---\n");
-    return ERROR;
+    return false;
   } else {
     Node* currentNode = list->head;
-    int count = 1;
+    unsigned int count = 1;
 
     printf("\n--- All Notes ---\n");
-
     while (currentNode != NULL) {
       printf("%d. %s\n", count++, currentNode->data);
       currentNode = currentNode->next;
     }
-
     printf("--- All Notes ---\n");
 
-    return SUCCESS;
+    return true;
   }
 }
