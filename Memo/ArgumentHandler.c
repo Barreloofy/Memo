@@ -9,6 +9,7 @@ Created by Barreloofy on 9/15/25 at 2:39 PM
 
 /* Appends the contents of argumentVector to file
  * when the program gets executed with the -add flag.
+ *
  * - Parameters:
  *    - argumentCount: The number of arguments passed to the program.
  *    - argumentVector: The arguments passed to the program.
@@ -39,7 +40,9 @@ static void handleAdd(int argumentCount, char* argumentVector[]) {
   }
 }
 
+
 /* The function responsible for handling any arguments passed to the program.
+ *
  * - Parameters:
  *    - argumentCount: The number of arguments passed to the program.
  *    - argumentVector: The arguments passed to the program.

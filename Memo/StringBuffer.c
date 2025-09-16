@@ -25,9 +25,11 @@ bool stringBufferInit(StringBuffer* buffer, size_t capacity) {
   return true;
 }
 
+
 /* The stringBufferAppend() function will grow the buffer
  * by calling realloc() if size of buffer matches its capacity.
- * In case of overflow or realloc() failing returns false, indicating element was not appended.
+ * In case of overflow or realloc() failing returns false,
+ * indicating element was not appended.
  * Failure will not deallocate buffer, instead it will null terminated buffer
  * by setting the last element to null.
  *

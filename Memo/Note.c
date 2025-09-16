@@ -8,6 +8,7 @@ Created by Barreloofy on 6/7/25 at 3:37 PM
 #include "Note.h"
 
 /* Adds a new node to list with the contents returned by noteCreate().
+ *
  * - Parameters:
  *    - list: The list of notes.
  */
@@ -26,7 +27,9 @@ void noteAdd(List* list) {
   }
 }
 
+
 /* Creates a new note from standard input.
+ *
  * - Returns: A pointer to the beginning of a null-terminated string.
  */
 char* noteCreate(void) {
@@ -61,7 +64,9 @@ char* noteCreate(void) {
   }
 }
 
+
 /* Removes the specified node, i.e, note from list.
+ *
  * - Parameters:
  *    - list: The list of notes.
  */

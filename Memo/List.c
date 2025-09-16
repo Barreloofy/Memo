@@ -7,19 +7,36 @@ Created by Barreloofy on 6/5/25 at 10:32 PM
 
 #include "List.h"
 
+/* Creates a new node with the specified null-terminated string.
+ *
+ * - Parameters:
+ *    - data: A null-terminated string.
+ * - Returns: On Success The pointer of the newly created node otherwise NULL.
+ */
 Node* nodeCreate(char* data) {
-  Node* node = malloc(sizeof(Node));
-  if (node == NULL) return NULL;
+  if (data == NULL) {
+    return NULL;
+  } else {
+    Node* node = malloc(sizeof(Node));
+    if (node == NULL) return NULL;
 
-  node->data = data;
-  node->previous = NULL;
-  node->next = NULL;
+    node->data = data;
+    node->previous = NULL;
+    node->next = NULL;
 
-  return node;
+    return node;
+  }
 }
 
+
+/* Deallocates node and its data.
+ *
+ * - Parameters:
+ *    - node: The node to deallocate.
+ * - Returns: A boolean indicating if the node was successfully deallocated.
+ */
 bool nodeDestroy(Node* node) {
-  if (node == NULL || (node->previous != NULL && node->next != NULL)) return false;
+  if (node == NULL) return false;
 
   free(node->data);
   free(node);
@@ -27,11 +44,23 @@ bool nodeDestroy(Node* node) {
   return true;
 }
 
+
+/* Creates a new empty list.
+ *
+ * - Returns: The newly created list.
+ */
 List listCreate(void) {
   List list = { NULL, NULL };
   return list;
 }
 
+
+/* Deallocates all members of the list and their content.
+ *
+ * - Parameters:
+ *    - list: The list to deallocate.
+ *    - Returns: A boolean indicating if the list was successfully deallocated.
+ */
 bool listDestroy(List* list) {
   if (list->head == NULL) {
     return true;
@@ -60,6 +89,14 @@ bool listDestroy(List* list) {
   }
 }
 
+
+/* Appends the specified node to list.
+ *
+ * - Parameters:
+ *    - list: The list to append to.
+ *    - node: The node to append.
+ * - Returns: A boolean indicating if node was successfully added to list.
+ */
 bool listAppend(List* list, Node* node) {
   if (node == NULL) return false;
 
@@ -78,6 +115,14 @@ bool listAppend(List* list, Node* node) {
   return true;
 }
 
+
+/* Removes a node from list specifed by its index.
+ *
+ * - Parameters:
+ *    - list: The list to remove from.
+ *    - index: The corresponding idnex of the node to remove.
+ * - Returns: A boolean indicating if node was successfully removed from list.
+ */
 bool listRemove(List* list, unsigned int index) {
   unsigned int count = 1;
   Node* currentNode = list->head;
@@ -122,6 +167,14 @@ bool listRemove(List* list, unsigned int index) {
   return false;
 }
 
+
+/* Displays the content of the list's nodes,
+ * in the order they were added to list.
+ *
+ * - Parameters:
+ *    - list: The list to display.
+ * - Returns: A boolean indicating if list is empty.
+ */
 bool listView(List* list) {
   if (list->head == NULL) {
     printf("\n--- No Note's Yet! ---\n");

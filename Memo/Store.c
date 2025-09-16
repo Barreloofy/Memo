@@ -8,6 +8,7 @@ Created by Barreloofy on 6/9/25 at 11:47 AM
 #include "Store.h"
 
 /* Private helper function of load(), called once a critical state is reached.
+ *
  * - Parameters:
  *    - list: The list to build up.
  *    - buffer: The StringBuffer holding the current string.
@@ -25,7 +26,9 @@ static void finalizeBuffer(List* list, StringBuffer* buffer, FILE* file, bool* i
   stringBufferInit(buffer, 1);
 }
 
+
 /* Process text data from a file into a doubly linked list.
+ *
  * - Parameters:
  *    - list: The list to build up.
  */
@@ -58,7 +61,9 @@ void load(List* list) {
   fclose(file);
 }
 
+
 /* Writes data from a list to file.
+ *
  * - Parameters:
  *    - list: The list to process data from.
  */
