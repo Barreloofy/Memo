@@ -11,26 +11,17 @@ Created by Barreloofy on 6/5/25 at 10:32 PM
 #include <stdlib.h>
 #include <stdio.h>
 #include "Bool.h"
-
-typedef struct Node Node;
-struct Node {
-  char* data;
-  Node* previous;
-  Node* next;
-};
-
-Node* nodeCreate(char*);
-bool nodeDestroy(Node*);
+#include "Node.h"
 
 typedef struct {
   Node* head;
   Node* tail;
 } List;
 
-List listCreate(void);
-bool listDestroy(List*);
+List initList(void);
+bool deinitList(List*);
 
-bool listView(List*);
+bool listView(const List*);
 bool listAppend(List*, Node*);
 bool listRemove(List*, unsigned int);
 

@@ -9,13 +9,14 @@ Created by Barreloofy on 9/5/25 at 6:10 PM
 
 /* The stringBufferInit() takes a pointer to a StringBuffer
  * and initializes its properties.
+ * The default capacity is 1 byte, a capacity value of 0 is invalid.
  *
  * - Parameters:
  *    - buffer: The StringBuffer to initialize.
  *    - capacity: The initial capacity of buffer.
  * - Returns: A boolean indicating whether initialization was successful.
  */
-bool stringBufferInit(StringBuffer* buffer, size_t capacity) {
+bool initStringBuffer(StringBuffer* buffer, size_t capacity) {
   buffer->storage = malloc(sizeof(char) * (capacity ? capacity : 1));
   if (buffer->storage == NULL) return false;
 

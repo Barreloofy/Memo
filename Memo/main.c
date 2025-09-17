@@ -17,7 +17,7 @@ Created by Barreloofy on 6/5/25 at 10:29 PM
 
 int main(int argc, char* argv[]) {
   if (argc == 1) {
-    List notes = listCreate();
+    List notes = initList();
     unsigned int choice = 0;
 
     load(&notes);

@@ -13,13 +13,15 @@ Created by Barreloofy on 9/5/25 at 6:10 PM
 #include "Bool.h"
 #include "Ascii.h"
 
+#define DEFAULTBUFFERSIZE 1
+
 typedef struct {
   char* storage;
   size_t size;
   size_t capacity;
 } StringBuffer;
 
-bool stringBufferInit(StringBuffer* buffer, size_t capacity);
+bool initStringBuffer(StringBuffer* buffer, size_t capacity);
 
 bool stringBufferAppend(StringBuffer* buffer, char element);
 

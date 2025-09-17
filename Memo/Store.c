@@ -8,6 +8,7 @@ Created by Barreloofy on 6/9/25 at 11:47 AM
 #include "Store.h"
 
 /* Private helper function of load(), called once a critical state is reached.
+ * Appends the current buffer to list, initializes a new buffer afterwards.
  *
  * - Parameters:
  *    - list: The list to build up.
@@ -21,9 +22,9 @@ static void finalizeBuffer(List* list, StringBuffer* buffer, FILE* file, bool* i
   } else {
     *isEmpty = true;
     stringBufferAppend(buffer, ASCIINULL);
-    listAppend(list, nodeCreate(buffer->storage));
+    listAppend(list, initNode(buffer->storage));
   }
-  stringBufferInit(buffer, 1);
+  initStringBuffer(buffer, 1);
 }
 
 
@@ -40,7 +41,7 @@ void load(List* list) {
 
   if (file == NULL) return;
 
-  if (!stringBufferInit(&buffer, 1)) {
+  if (!initStringBuffer(&buffer, DEFAULTBUFFERSIZE)) {
     fclose(file);
     return;
   }
@@ -62,7 +63,7 @@ void load(List* list) {
 }
 
 
-/* Writes data from a list to file.
+/* Writes data from list to file.
  *
  * - Parameters:
  *    - list: The list to process data from.

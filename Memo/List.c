@@ -7,49 +7,11 @@ Created by Barreloofy on 6/5/25 at 10:32 PM
 
 #include "List.h"
 
-/* Creates a new node with the specified null-terminated string.
- *
- * - Parameters:
- *    - data: A null-terminated string.
- * - Returns: On Success The pointer of the newly created node otherwise NULL.
- */
-Node* nodeCreate(char* data) {
-  if (data == NULL) {
-    return NULL;
-  } else {
-    Node* node = malloc(sizeof(Node));
-    if (node == NULL) return NULL;
-
-    node->data = data;
-    node->previous = NULL;
-    node->next = NULL;
-
-    return node;
-  }
-}
-
-
-/* Deallocates node and its data.
- *
- * - Parameters:
- *    - node: The node to deallocate.
- * - Returns: A boolean indicating if the node was successfully deallocated.
- */
-bool nodeDestroy(Node* node) {
-  if (node == NULL) return false;
-
-  free(node->data);
-  free(node);
-
-  return true;
-}
-
-
 /* Creates a new empty list.
  *
  * - Returns: The newly created list.
  */
-List listCreate(void) {
+List initList(void) {
   List list = { NULL, NULL };
   return list;
 }
@@ -61,7 +23,7 @@ List listCreate(void) {
  *    - list: The list to deallocate.
  *    - Returns: A boolean indicating if the list was successfully deallocated.
  */
-bool listDestroy(List* list) {
+bool deinitList(List* list) {
   if (list->head == NULL) {
     return true;
   } else {
@@ -69,7 +31,7 @@ bool listDestroy(List* list) {
 
     while ((nodeToDestroy = list->head) != NULL) {
       if (nodeToDestroy->next == NULL) {
-        if (!nodeDestroy(nodeToDestroy)) {
+        if (!deinitNode(nodeToDestroy)) {
           return false;
         } else {
           goto finish;
@@ -79,7 +41,7 @@ bool listDestroy(List* list) {
       list->head = nodeToDestroy->next;
       list->head->previous = NULL;
 
-      if (!nodeDestroy(nodeToDestroy)) return false;
+      if (!deinitNode(nodeToDestroy)) return false;
     }
 
   finish:
@@ -136,20 +98,20 @@ bool listRemove(List* list, unsigned int index) {
         if (currentNode == list->tail) {
           list->head = NULL;
           list->tail = NULL;
-          return nodeDestroy(currentNode);
+          return deinitNode(currentNode);
         } else {
           list->head = currentNode->next;
           list->head->previous = NULL;
 
           currentNode->next = NULL;
-          return nodeDestroy(currentNode);
+          return deinitNode(currentNode);
         }
       } else if (currentNode == list->tail) {
         list->tail = currentNode->previous;
         list->tail->next = NULL;
 
         currentNode->previous = NULL;
-        return nodeDestroy(currentNode);
+        return deinitNode(currentNode);
       } else {
         Node* previous = currentNode->previous;
         Node* next = currentNode->next;
@@ -159,7 +121,7 @@ bool listRemove(List* list, unsigned int index) {
 
         currentNode->previous = NULL;
         currentNode->next = NULL;
-        return nodeDestroy(currentNode);
+        return deinitNode(currentNode);
       }
     }
   }
@@ -175,7 +137,7 @@ bool listRemove(List* list, unsigned int index) {
  *    - list: The list to display.
  * - Returns: A boolean indicating if list is empty.
  */
-bool listView(List* list) {
+bool listView(const List* list) {
   if (list->head == NULL) {
     printf("\n--- No Note's Yet! ---\n");
     return false;

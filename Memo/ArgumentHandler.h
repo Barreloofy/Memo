@@ -13,6 +13,6 @@ Created by Barreloofy on 9/15/25 at 2:39 PM
 #include "Ascii.h"
 #include "Store.h"
 
-#endif
-
 void handleArguments(int argc, char* argv[]);
+
+#endif

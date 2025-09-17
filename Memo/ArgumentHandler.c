@@ -24,7 +24,7 @@ static void handleAdd(int argumentCount, char* argumentVector[]) {
     FILE* file = fopen(FILENAME, "a");
 
     if (file == NULL) {
-      printf("%s could not add note\n", argumentVector[0]);
+      printf("%s Could Not Add Note\n", argumentVector[0]);
       return;
     }
 

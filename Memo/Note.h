@@ -18,6 +18,5 @@ Created by Barreloofy on 6/7/25 at 3:37 PM
 char* noteCreate(void);
 void noteAdd(List*);
 void noteRemove(List*);
-void noteRemove(List*);
 
 #endif
